@@ -68,7 +68,7 @@
     };
 
     nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
+      url = "github:Infinidoge/nix-minecraft/f80c70946d3e27a466b8b9e65b24e36d571eac8b";
     };
 
   };
