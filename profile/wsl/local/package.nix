@@ -2,6 +2,7 @@
 
       # default
       with pkgs; [
+        install
         help
         nixfind
         tokei
