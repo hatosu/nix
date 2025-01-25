@@ -23,4 +23,6 @@
   radio-cli = import ./radio-cli.nix;
   tmux = import ./tmux.nix;
   obsidian = import ./obsidian.nix;
+  minecraft = import ./minecraft.nix;
+  openssh = import ./openssh.nix;
 }

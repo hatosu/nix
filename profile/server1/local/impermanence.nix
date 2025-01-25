@@ -38,12 +38,9 @@
 
     # root
     directories = [
-      "/etc/NetworkManager/system-connections"
+      "/var/lib/minecraft"
       "/var/log"
-      "/var/lib/bluetooth"
       "/var/lib/nixos"
-      "/var/lib/docker"
-      "/var/lib/waydroid"
       "/var/lib/systemd/coredump"
       {directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o=";}
     ];
@@ -52,44 +49,21 @@
     ];
 
     # home
-    users.hatosu = { directories = [ ".cache/dconf" ".config/dconf"
-        "files"
-        ".mozilla"
-        ".config/obsidian"
-        ".config/obs-studio"
-        ".config/alvr"
-        ".config/Valve"
-        ".config/openvr"
-        ".config/godot"
-        ".config/vesktop"
-        ".config/spotify"
-        ".config/Ryujinx"
-        ".config/Cemu"
-        ".local/state/wireplumber"
-        ".local/share/Anki2"
-        ".local/share/godot"
-        ".local/share/kdenlive"
-        ".local/share/Steam"
-        ".local/share/waydroid"
-        ".local/share/shadPS4"
-        ".local/share/Cemu"
-        ".local/share/Cemu/games"
-      ];
-      files = [
-        ".zsh_history"
-        ".config/kdenliverc"
-        ".config/kdenlive-layoutsrc"
+    users.server1 = {
+      directories = [
+        ".cache/dconf" 
+        ".config/dconf"
       ];
     };
   
   };
 
   systemd.tmpfiles.settings = { 
-    "persist-hatosu-homedir" = {
-      "/persist/home/hatosu" = {
+    "persist-server1-homedir" = {
+      "/persist/home/server1" = {
         d = {
           group = "users";
-          user = "hatosu";
+          user = "server1";
           mode = "0700";
         };
       };
@@ -97,19 +71,19 @@
   };
 
   system.activationScripts.chown.text = ''
-    chown -R hatosu:users /persist/system/home/hatosu
-    chown -R hatosu:users /home/hatosu
+    chown -R server1:users /persist/system/home/server1
+    chown -R server1:users /home/server1
   '';
 
   # declare machine-id (prevents impermanence errors)
-  environment.etc.machine-id.text = "a18b549c5915442693cd012bb398da2f";
+  environment.etc.machine-id.text = "98y98gnskjdiqfalfnfajkngf99384az";
 
   # satisfy hm with dconf
-  home-manager.users.hatosu.home.packages = [pkgs.dconf];
+  home-manager.users.server1.home.packages = [pkgs.dconf];
 
   # move xdg folders to .cache
-  home-manager.users.hatosu.xdg = let
-    home = config.home-manager.users.hatosu.home.homeDirectory;
+  home-manager.users.server1.xdg = let
+    home = config.home-manager.users.server1.home.homeDirectory;
   in {
     enable = true;
     userDirs = {
@@ -125,4 +99,5 @@
       music = "${home}/.cache/Music";
     };
   };
+
 }

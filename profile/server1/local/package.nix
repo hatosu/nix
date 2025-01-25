@@ -1,51 +1,34 @@
 { pkgs, ... }: { environment.systemPackages =
-
+    
       # default
       with pkgs; [
-        help
-        nixfind
-        tokei
-        zip
-        wget
-        lshw
-        dos2unix
-        openssh
+        kitty
       ]
-
+      
       # fresh
       ++ (with pkgs.fresh; [
         git
       ])
-
+      
       # latest
       ++ (with pkgs.latest; [
-        httrack
-        ffmpeg
+        firefox
       ])
-
+      
       # stable
       ++ (with pkgs.stable; [
-        tree
-        ripgrep
-        rarcrack
-        hyperfine
-        watchexec
-        shellcheck
-        rclone
+        vim
       ])
-
+      
       # pinned
       ++ (with pkgs.pinned; [
-        element
+        xdotool
       ]);
 
-      # fonts
       fonts.packages = with pkgs; [
-        source-code-pro
-        font-awesome
-        gohufont
-        hack-font
         noto-fonts
+        hack-font
+        gohufont
       ] ++ (lib.filter lib.isDerivation (lib.attrValues pkgs.nerd-fonts));
 
 }

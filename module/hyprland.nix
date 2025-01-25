@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   strings,
   ...
 }: {
@@ -55,6 +54,7 @@
     name = "oreo_spark_light_pink_cursors";
     size = 20;
   };
+
   home-manager.users.hatosu.home.sessionVariables.GSK_RENDERER = "gl";
 
   services.dbus.enable = true;
@@ -101,8 +101,8 @@
       mainBar = {
         output = ["*"];
         layer = "top";
-        position = "bottom";
-        margin = "5px";
+        position = "top";
+        margin = "1px";
         height = 32;
         modules-left = [
           "hyprland/workspaces"
@@ -138,6 +138,7 @@
     };
 
     extraConfig = let
+
       display = ''
         monitor = HDMI-A-1,2560x1080@165,auto,auto
         monitor = eDP-1, disable
@@ -204,8 +205,8 @@
           }
         }
         general {
-          gaps_in = 9
-          gaps_out = 11
+          gaps_in = 8
+          gaps_out = 10
           border_size = 1
           col.active_border = rgba(f78f88d9) rgba(f5c0bcd9) rgba(ceeaf0d9)
           col.inactive_border = rgba(595959aa)
@@ -250,15 +251,15 @@
 
       binds = ''
         $mainMod = SUPER
-        bind = $mainMod, T, exec, rofi -show drun
+        bind = $mainMod, Space, exec, rofi -show drun
         bind = $mainMod, C, exec, cliphist list | ${pkgs.fuzzel}/bin/fuzzel -d | cliphist decode | wl-copy
-        bind = $mainMod, L, exec, foot
+        bind = $mainMod, Return, exec, foot
         bind = $mainMod, B, exec, firefox
-        bind = $mainMod, H, exec, flameshot gui
-        bind = $mainMod, O, exec, nixocr
-        bind = $mainMod, P, exec, ${pkgs.hyprpicker}/bin/hyprpicker -a
+        bind = $mainMod, S, exec, flameshot gui
+        bind = $mainMod, V, exec, nixocr
+        bind = $mainMod, F, exec, ${pkgs.hyprpicker}/bin/hyprpicker -a
         bind = $mainMod, X, togglefloating
-        bind = $mainMod, Z, killactive,
+        bind = $mainMod, Q, killactive,
         bind = $mainMod+Ctrl, F, fullscreen
         bind = $mainMod+Ctrl, Y, exit,
         bind = $mainMod, a, movefocus, l
@@ -285,14 +286,14 @@
         bind = $mainMod+Shift, 8, movetoworkspace, 8
         bind = $mainMod+Shift, 9, movetoworkspace, 9
         bind = $mainMod+Shift, 0, movetoworkspace, 10
-        binde = $mainMod, r, resizeactive, 110 0
-        binde = $mainMod, q, resizeactive, -110 0
-        binde = $mainMod, e, resizeactive, 0 -50
-        binde = $mainMod, w, resizeactive, 0 50
-        bind = $mainMod+Shift, a, movewindow, l
-        bind = $mainMod+Shift, f, movewindow, r
-        bind = $mainMod+Shift, d, movewindow, u
-        bind = $mainMod+Shift, s, movewindow, d
+        binde = $mainMod, p, resizeactive, 110 0
+        binde = $mainMod, u, resizeactive, -110 0
+        binde = $mainMod, o, resizeactive, 0 -50
+        binde = $mainMod, i, resizeactive, 0 50
+        bind = $mainMod+Shift, h, movewindow, l
+        bind = $mainMod+Shift, l, movewindow, r
+        bind = $mainMod+Shift, j, movewindow, u
+        bind = $mainMod+Shift, k, movewindow, d
         bindm = $mainMod, mouse:272, movewindow
         bindm = $mainMod, mouse:273, resizewindow
         bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+

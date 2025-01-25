@@ -3,6 +3,7 @@
   strings,
   ...
 }: {
+
   # enable keyd as hotkey service
   services.keyd = {
     enable = true;
@@ -11,7 +12,7 @@
       settings = {
         main = {
           rightshift = "overload(rightshift, rightshift)";
-          rightalt = "layer(meta)";
+          leftalt = "layer(meta)";
           leftmeta = "layer(alt)";
         };
         rightshift = {

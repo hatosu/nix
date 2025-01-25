@@ -19,19 +19,50 @@
     browse = "${pkgs.stable.w3m}/bin/w3m";
     pings = "${pkgs.stable.gping}/bin/gping";
     tasks = "${pkgs.stable.htop}/bin/htop";
-    webget = "${pkgs.latest.wget}/bin/wget -mpEk";
     vidget = "${pkgs.latest.yt-dlp}/bin/yt-dlp --format mp4";
-    gifget = "${pkgs.latest.yt-dlp}/bin/yt-dlp --format gif";
     audget = "${pkgs.latest.yt-dlp}/bin/yt-dlp -x --no-keep-video";
     spotget = "${pkgs.stable.spotdl}/bin/spotdl --format mp3";
   };
 
   interactiveShellInit = ''
 
-    open(){
-      sudo updatedb
-      nvim $(locate -ie "$1" | ${pkgs.skim}/bin/sk)
+    webget(){
+      ${pkgs.latest.wget}/bin/wget -mpEk "$1"
     }
+
+    # # example usage: mediaget -f mp4 -c 40 -s 00:00:05 -e 00:00:09
+    # mediaget(){
+    #   PATH=$PATH:${pkgs.getopt}/bin
+    #   while getopts 'ftc' OPTION; do
+    #     case "$OPTION" in
+    #       f)
+    #         dvalue="$OPTARG"
+    #         export _MEDIAFORMAT=$OPTARG
+    #         ;;
+    #       c)
+    #         dvalue="$OPTARG"
+    #         export _MEDIACROP=$OPTARG
+    #         ;;
+    #       s)
+    #         dvalue="$OPTARG"
+    #         export _MEDIASTART=$OPTARG
+    #         ;;
+    #       e)
+    #         dvalue="$OPTARG"
+    #         export _MEDIAEND=$OPTARG
+    #         ;;
+    #     esac
+    #   done
+    #   ${pkgs.latest.yt-dlp}/bin/yt-dlp --format $_MEDIAFORMAT -o "/tmp/_OUTPUTVIDEO.$_MEDIAFORMAT" "$1"
+    #   ${pkgs.latest.ffmpeg}/bin/ffmpeg -i "/tmp/_OUTPUTVIDEO.$_MEDIAFORMAT" -vf "crop=in_w:in_h-$_MEDIACROP" -c:a copy "/tmp/_OUTPUTVIDEO.$_MEDIAFORMAT" 
+    #   ${pkgs.latest.ffmpeg}/bin/ffmpeg -i "/tmp/_OUTPUTVIDEO.$_MEDIAFORMAT" -ss "$_MEDIASTART" -to "$_MEDIAEND" -c:v copy -c:a copy "_OUTPUTVIDEO.$_MEDIAFORMAT"
+    #   mv -f "/tmp/_OUTPUTVIDEO.$_MEDIAFORMAT" .
+    # }
+
+    # open(){
+    #   sudo updatedb
+    #   nvim $(locate -ie "$1" | ${pkgs.skim}/bin/sk)
+    # }
 
     hist(){
       history | grep "$1" | less +G

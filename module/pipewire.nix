@@ -1,8 +1,14 @@
 {
   ...
 }: {
+
+  # idk just enable this
   security.rtkit.enable = true;
-  hardware.pulseaudio.enable = false;
+
+  # disable pulseaudio
+  services.pulseaudio.enable = false;
+
+  # pipewire :D
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -20,4 +26,5 @@
       };
     };
   };
+
 }

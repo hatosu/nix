@@ -5,13 +5,13 @@
   inputs,
   ...
 }: let
-
-  FLAKE = "/home/hatosu/files/nix";
-
-  HOST = "laptop";
+  
+  FLAKE = "/home/server1/nix/";
+  
+  HOST = "server1";
 
 in {
-
+  
   nix = let flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs; in {
     
     settings = {
@@ -30,7 +30,7 @@ in {
       extra-trusted-substituters = ["https://nix-community.cachix.org"];
       extra-trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
 
-      download-buffer-size = "9999999999";
+      download-buffer-size = "999999999";
 
       trusted-users = [
         "root"

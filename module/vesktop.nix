@@ -302,7 +302,24 @@ in { home-manager.users.hatosu = {
     extraConfig = {
       plugins = {
         betterActivities.enable = true;
-        messageLoggerEnhanced.enable = true;
+        messageLoggerEnhanced = {
+          enable = true;
+          saveMessages = true;
+          saveImages = true;
+          sortNewest = true;
+          cacheMessagesFromServers = true;
+          autoCheckForUpdates = false;
+          ignoreBots = false;
+          ignoreSelf = true;
+          ignoreMutedGuilds = false;
+          ignoreMutedCategories = false;
+          ignoreMutedChannels = false;
+          alwaysLogDirectMessages = true;
+          alwaysLogCurrentChannel = true;
+          permanentlyRemoveLogByDefault = false;
+          hideMessageFromMessageLoggers = true;
+          showLogsButton = true;
+        };
       };
     };
 

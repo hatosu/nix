@@ -1,62 +1,48 @@
 {
-  pkgs,
+  inputs,
+  lib,
+  nixosVersion,
   ...
 }: {
 
-  imports = [
-    ./hardware.nix
-    ./disk.nix
-    ./impermanence.nix
-    ./manage.nix
-    ./network.nix
-    ./webfish.nix
+  imports = let module = inputs.self.nixosModules; in [
+
+    ./local/hardware.nix
+    ./local/disk.nix
+    ./local/host.nix
+    ./local/boot.nix
+    ./local/impermanence.nix
+    ./local/package.nix
+    ./local/manage.nix
+    ./local/network.nix
+
+    module.cli
+    module.tmux
+    module.openssh
+    module.minecraft
+
   ];
 
-  users.users.server1 = {
-    isNormalUser = true;
-    home = "/home/server1";
-    initialPassword = ";";
-    group = "users";
-    extraGroups = ["wheel"];
+  nixpkgs = { overlays = let overlay = inputs.self.overlays; in [
+
+    overlay.additions
+    overlay.modifications
+    overlay.fresh-packages
+    overlay.latest-packages
+    overlay.stable-packages
+    overlay.pinned-packages
+  
+  ];};
+
+  home-manager = {
+    backupFileExtension = "backup";
+    users = {
+      "server1" = import ./home.nix;
+    };
   };
 
-  i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    useXkbConfig = true;
-  };
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  services.xserver = {
-    enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
-  };
+  system.stateVersion = nixosVersion;
 
-  programs.steam.enable = true;
-
-  fonts.packages = with pkgs; [
-    noto-fonts
-    hack-font
-    gohufont
-  ];
-
-  boot.loader.systemd-boot.enable = true;
-
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.kernelPackages = pkgs.linuxPackages;
-
-  networking.hostName = "nix";
-
-  time.timeZone = "America/Los_Angeles";
-
-  environment.systemPackages = with pkgs; [
-    vim
-    git
-    xdotool
-    kitty
-    firefox
-  ];
-
-  system.stateVersion = "23.11";
 }

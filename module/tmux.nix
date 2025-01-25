@@ -8,12 +8,12 @@
     S="hatosu-tmux"
     tmux has-session -t=$S 2> /dev/null
     if [[ $? -ne 0 ]]; then
-      TMUX="" tmux new-session -d -s "$S" -n "logs"
-      TMUX="" tmux send-keys -t $S:logs "journalctl -f" C-m
+      TMUX="" tmux new-session -d -s "$S" -n "zsh"
+      TMUX="" tmux send-keys -t $S:zsh "echo 'guh... mlem...'" C-m
       #TMUX="" tmux new-window -t $S -n "edit"
       #TMUX="" tmux send-keys -t $S:edit "${EDITOR}" C-m
-      #TMUX="" tmux new-window -t $S -n "shell"
-      #TMUX="" tmux send-keys -t $S:shell "${pkgs.fastfetch}/bin/fastfetch" C-m
+      #TMUX="" tmux new-window -t $S -n "logs"
+      #TMUX="" send-keys -t $S:logs "sudo journalctl -f" C-m
     fi
     if [[ -z "$TMUX" ]]; then
       tmux attach -t "$S"
@@ -84,6 +84,7 @@ in {
          bind j select-pane -D
          bind k select-pane -U
          bind l select-pane -R
+         set-option -sg escape-time 10
          set -g pane-border-style fg='#6272a4'
          set -g pane-active-border-style fg='#ff79c6'
          set -g message-style bg='#44475a',fg='#8be9fd'

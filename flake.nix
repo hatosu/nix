@@ -24,7 +24,7 @@
     };
 
     nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/e563803af3526852b6b1d77107a81908c66a9fcf";
+      url = "github:NixOS/nixos-hardware/8870dcaff63dfc6647fb10648b827e9d40b0a337";
     };
 
     home-manager = {
@@ -53,7 +53,7 @@
     };
 
     nixcord = {
-      url = "github:kaylorben/nixcord/f7f800b825d63b401c656d6c83b43be5ae6851bd";
+      url = "github:kaylorben/nixcord/d5f2fbef2fad379190e0c7a0d2d2f12c4e4df034";
     };
 
     plasma-manager = {
@@ -65,6 +65,10 @@
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=507a6a4dfcf786e6b6691eeae1c96fc9f21a7d95";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
     };
 
   };
@@ -132,20 +136,20 @@
         ];
       };
 
-      server1 = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules = [
-          ./profile/server1/configuration.nix
-          inputs.disko.nixosModules.default
-          inputs.impermanence.nixosModules.impermanence
-        ];
-      };
-
       wsl = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules = homeManager ++ [
           ./profile/wsl/configuration.nix
           nixos-wsl.nixosModules.default
+        ];
+      };
+
+      server1 = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules = homeManager ++ [
+          ./profile/server1/configuration.nix
+          inputs.disko.nixosModules.default
+          inputs.impermanence.nixosModules.impermanence
         ];
       };
 

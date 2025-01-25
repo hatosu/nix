@@ -21,8 +21,6 @@
     ./local/package.nix
     ./local/manage.nix
     ./local/alias.nix
-    ./local/function.nix
-    ./local/secure.nix
     ./local/utility.nix
 
     # import global nix modules

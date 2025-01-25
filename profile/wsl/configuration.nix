@@ -18,8 +18,7 @@
     module.cli
     module.neovim
     module.tmux
-    module.yazi
-    module.mpv
+    module.minecraft
   
   ];
 
