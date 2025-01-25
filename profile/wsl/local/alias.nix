@@ -26,6 +26,11 @@
 
   interactiveShellInit = ''
 
+    epubtopdf(){
+      PATH=$PATH:${pkgs.texliveFull}/bin
+      ${pkgs.pandoc}/bin/pandoc -V fontsize=12pt -V geometry:margin=1in -f epub -t latex -o output.pdf --pdf-engine=xelatex
+    }
+
     webget(){
       ${pkgs.latest.wget}/bin/wget -mpEk "$1"
     }

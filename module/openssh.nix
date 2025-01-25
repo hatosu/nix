@@ -11,7 +11,7 @@
       StreamLocalBindUnlink yes
     '';
 
-    ports = [ 22 ];
+    ports = [ 270 ];
     openFirewall = true;
 
     #authorizedKeysInHomedir = true;
@@ -50,18 +50,21 @@
 
     settings = {
 
+      # use only key auth
+      KbdInteractiveAuthentication = false;
       PasswordAuthentication = false;
+
+      # allowed/denied users/groups
+      AllowUsers = [ "hatosu" ];
+      #AllowGroups = [ "wheel" ];
+      #DenyUsers = [ "" ];
+      #DenyGroups = [ "root" ];
+
       X11Forwarding = false;
       UsePAM = true;
       UseDns = true;
       StrictModes = true;
       PrintMotd = false;
-      KbdInteractiveAuthentication = true;
-
-      AllowUsers = [ "hatosu" ];
-      #AllowGroups = [ "wheel" ];
-      #DenyUsers = [ "" ];
-      #DenyGroups = [ "root" ];
 
       LogLevel = "INFO";
       AuthorizedPrincipalsFile = "none";

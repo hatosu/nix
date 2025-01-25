@@ -24,12 +24,12 @@
 
   nixpkgs = { overlays = let overlay = inputs.self.overlays; in [
 
-      overlay.additions
-      overlay.modifications
-      overlay.fresh-packages
-      overlay.latest-packages
-      overlay.stable-packages
-      overlay.pinned-packages
+    overlay.additions
+    overlay.modifications
+    overlay.fresh-packages
+    overlay.latest-packages
+    overlay.stable-packages
+    overlay.pinned-packages
     
   ];};
 

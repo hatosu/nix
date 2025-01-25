@@ -6,9 +6,11 @@
   ...
 }: let
   
-  FLAKE = "/mnt/c/Users/hatosu/files/nix";
+  FLAKE = "/mnt/c/Users/hatosu/files/os/nix";
   
   HOST = "wsl";
+
+  GIT = "/mnt/c/Users/hatosu/files/github/nix";
 
 in {
   
@@ -98,6 +100,20 @@ in {
       sudo nix store optimise
       sudo rm -rf /tmp/*
       sudo rm -rf ~/.cache/*
+    '';
+    pushnix = ''
+      printf "enter comment: " >&2
+      read -r COM
+      sudo chmod a+rwx ${GIT}
+      cd ${GIT}
+      sudo git rm -rf ${GIT}/*
+      sudo cp -rf ${FLAKE}/* ${GIT}
+      sudo git switch main
+      sudo git add .
+      sudo git add -A
+      sudo git commit -am "$COM"
+      sudo git push nix
+      cd
     '';
   };
 
