@@ -5,31 +5,30 @@
     - tmux -S /run/minecraft/smp.sock attach 
   */
 
-  dataDir = "/home/hatosu/minecraft";
+  dataDir = "/srv/minecraft";
 
-  runDir = "/run/minecraft";
-
-  backupDir = "/home/hatosu/_backup";
+  backupDir = "/srv/_backup";
 
   serverFlags = builtins.concatStringsSep '' '' [
+    "-Xms2G"
+    "-Xmx6G"
+    "-XX:+UseG1GC"
+    "-XX:+ParallelRefProcEnabled"
+    "-XX:MaxGCPauseMillis=200"
     "-XX:+UnlockExperimentalVMOptions"
-    "-XX:+UnlockDiagnosticVMOptions"
-    "-XX:+AlwaysActAsServerClassMachine"
-    "-XX:+AlwaysPreTouch"
     "-XX:+DisableExplicitGC"
-    "-XX:NmethodSweepActivity=1"
-    "-XX:ReservedCodeCacheSize=400M"
-    "-XX:NonNMethodCodeHeapSize=12M"
-    "-XX:ProfiledCodeHeapSize=194M"
-    "-XX:NonProfiledCodeHeapSize=194M"
-    "-XX:-DontCompileHugeMethods"
-    "-XX:MaxNodeLimit=240000"
-    "-XX:NodeLimitFudgeFactor=8000"
-    "-XX:+UseVectorCmov"
+    "-XX:+AlwaysPreTouch"
+    "-XX:G1NewSizePercent=30"
+    "-XX:G1MaxNewSizePercent=40"
+    "-XX:G1HeapRegionSize=8M"
+    "-XX:G1ReservePercent=20"
+    "-XX:G1HeapWastePercent=5"
+    "-XX:G1MixedGCCountTarget=4"
+    "-XX:InitiatingHeapOccupancyPercent=15"
+    "-XX:G1MixedGCLiveThresholdPercent=90"
+    "-XX:SurvivorRatio=32"
     "-XX:+PerfDisableSharedMem"
-    "-XX:+UseFastUnorderedTimeStamps"
-    "-XX:+UseCriticalJavaThreadPriority"
-    "-XX:ThreadPriorityPolicy=1"
+    "-XX:MaxTenuringThreshold=1"
   ];
 
   serverProperties = {
@@ -63,7 +62,7 @@
     generate-structures = true;
     require-resource-pack = false;
     use-native-transport = true;
-    online-mode = true;
+    online-mode = false; # accept cracked players
     enable-status = true;
     allow-flight = false;
     broadcast-rcon-to-ops = true;
@@ -90,14 +89,40 @@ in {
 
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
- # networking.firewall.interfaces."*".allowedTCPPorts = [ 25565 19132 ];
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 25565 19132 ];
+  };
+
+  systemd.tmpfiles.rules = [
+    "d ${dataDir} 0777 minecraft minecraft"
+    "d ${backupDir} 0777 minecraft minecraft"
+  ];
+
+  users = {
+    users.minecraft = {
+      shell = pkgs.bash;
+      isSystemUser = true;
+      group = "minecraft";
+      extraGroups = ["wheel" "minecraft"];
+      home = "${dataDir}";
+    };
+    groups.minecraft = {};
+  };
 
   services.minecraft-servers = {
 
-    inherit dataDir runDir;
+    inherit dataDir;
     enable = true;
     eula = true;
     openFirewall = true;
+
+    managementSystem = {
+      tmux = {
+        enable = true;
+        socketPath = name: "${dataDir}/sessions/${name}.sock";
+      };
+    };
 
     servers.smp = {
 
@@ -112,12 +137,85 @@ in {
       extraReload = ''
         echo 'reloading server' > /run/minecraft/proxy.stdin
         mcrun alert "buh..."
-        rm -rf ${backupDir}
-        mkdir ${backupDir}
+        rm -rf ${backupDir}/*
         cp -rf ${dataDir}/worlds* ${backupDir}
       '';
 
       symlinks = {
+
+        "config/paper-world-defaults.yml" = let yml = pkgs.writeText "-" ''
+          anticheat:
+            anti-xray:
+              enabled: true
+              engine-mode: 2
+              hidden-blocks:
+              - air
+              - copper_ore
+              - deepslate_copper_ore
+              - raw_copper_block
+              - diamond_ore
+              - deepslate_diamond_ore
+              - gold_ore
+              - deepslate_gold_ore
+              - iron_ore
+              - deepslate_iron_ore
+              - raw_iron_block
+              - lapis_ore
+              - deepslate_lapis_ore
+              - redstone_ore
+              - deepslate_redstone_ore
+              lava-obscures: false
+              max-block-height: 64
+              replacement-blocks:
+              - chest
+              - amethyst_block
+              - andesite
+              - budding_amethyst
+              - calcite
+              - coal_ore
+              - deepslate_coal_ore
+              - deepslate
+              - diorite
+              - dirt
+              - emerald_ore
+              - deepslate_emerald_ore
+              - granite
+              - gravel
+              - oak_planks
+              - smooth_basalt
+              - stone
+              - tuff
+              update-radius: 2
+              use-permission: false
+        ''; in yml;
+
+        "world_nether/paper-world.yml" = let yml = pkgs.writeText "-" ''
+           anticheat:
+             anti-xray:
+               enabled: true
+               engine-mode: 2
+               hidden-blocks:
+               - air
+               - ancient_debris
+               - bone_block
+               - glowstone
+               - magma_block
+               - nether_bricks
+               - nether_gold_ore
+               - nether_quartz_ore
+               - polished_blackstone_bricks
+               lava-obscures: false
+               max-block-height: 128
+               replacement-blocks:
+               - basalt
+               - blackstone
+               - gravel
+               - netherrack
+               - soul_sand
+               - soul_soil
+               update-radius: 2
+               use-permission: false
+        ''; in yml;
 
         "plugins/Geyser-Spigot/config.yml" = let yml = pkgs.writeText "-" ''
           bedrock:
