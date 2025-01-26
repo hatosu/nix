@@ -2,9 +2,9 @@
 
   networking.hostName = "server1";
 
-  users.users.server1 = {
+  users.users.hatosu = {
     isNormalUser = true;
-    home = "/home/server1";
+    home = "/home/hatosu";
     initialPassword = ";";
     group = "users";
     extraGroups = ["wheel"];

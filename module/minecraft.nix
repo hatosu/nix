@@ -5,9 +5,11 @@
     - tmux -S /run/minecraft/smp.sock attach 
   */
 
-  dataDir = "/var/lib/minecraft";
+  dataDir = "/home/hatosu/minecraft";
 
   runDir = "/run/minecraft";
+
+  backupDir = "/home/hatosu/_backup";
 
   serverFlags = builtins.concatStringsSep '' '' [
     "-XX:+UnlockExperimentalVMOptions"
@@ -110,9 +112,9 @@ in {
       extraReload = ''
         echo 'reloading server' > /run/minecraft/proxy.stdin
         mcrun alert "buh..."
-        rm -rf /var/lib/_backup
-        mkdir /var/lib/_backup
-        cp -rf ${dataDir}/worlds* /var/lib/_backup
+        rm -rf ${backupDir}
+        mkdir ${backupDir}
+        cp -rf ${dataDir}/worlds* ${backupDir}
       '';
 
       symlinks = {

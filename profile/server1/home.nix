@@ -5,8 +5,8 @@
 
   # hm
   programs.home-manager.enable = true;
-  home.username = "server1";
-  home.homeDirectory = "/home/server1";
+  home.username = "hatosu";
+  home.homeDirectory = "/home/hatosu";
 
   # version
   home.enableNixpkgsReleaseCheck = false;

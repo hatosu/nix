@@ -37,7 +37,7 @@
   home-manager = {
     backupFileExtension = "backup";
     users = {
-      "server1" = import ./home.nix;
+      "hatosu" = import ./home.nix;
     };
   };
 

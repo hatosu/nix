@@ -38,10 +38,10 @@
 
     # root
     directories = [
-      "/var/lib/minecraft"
       "/var/log"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
+      #"/var/lib/minecraft"
       {directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o=";}
     ];
     files = [
@@ -49,21 +49,22 @@
     ];
 
     # home
-    users.server1 = {
+    users.hatosu = {
       directories = [
         ".cache/dconf" 
         ".config/dconf"
+        "minecraft"
       ];
     };
   
   };
 
   systemd.tmpfiles.settings = { 
-    "persist-server1-homedir" = {
-      "/persist/home/server1" = {
+    "persist-hatosu-homedir" = {
+      "/persist/home/hatosu" = {
         d = {
           group = "users";
-          user = "server1";
+          user = "hatosu";
           mode = "0700";
         };
       };
@@ -71,19 +72,19 @@
   };
 
   system.activationScripts.chown.text = ''
-    chown -R server1:users /persist/system/home/server1
-    chown -R server1:users /home/server1
+    chown -R hatosu:users /persist/system/home/hatosu
+    chown -R hatosu:users /home/hatosu
   '';
 
   # declare machine-id (prevents impermanence errors)
   environment.etc.machine-id.text = "98y98gnskjdiqfalfnfajkngf99384az";
 
   # satisfy hm with dconf
-  home-manager.users.server1.home.packages = [pkgs.dconf];
+  home-manager.users.hatosu.home.packages = [pkgs.dconf];
 
   # move xdg folders to .cache
-  home-manager.users.server1.xdg = let
-    home = config.home-manager.users.server1.home.homeDirectory;
+  home-manager.users.hatosu.xdg = let
+    home = config.home-manager.users.hatosu.home.homeDirectory;
   in {
     enable = true;
     userDirs = {

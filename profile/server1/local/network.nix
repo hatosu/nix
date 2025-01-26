@@ -1,7 +1,10 @@
-{...}: {
-  networking.networkmanager.enable = true;
+{...}: { networking = {
 
-  networking.firewall = {
+  networkmanager = {
+    enable = true;
+  };
+
+  firewall = {
     enable = true;
     #trustedInterfaces = [ "enp0s2" ];
     #rejectPackets = false;
@@ -32,4 +35,5 @@
     #allowedTCPPortRanges = [ { from = 8999; to = 9003; } ];
     #};
   };
-}
+
+};}

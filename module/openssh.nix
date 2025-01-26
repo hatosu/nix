@@ -7,11 +7,11 @@
     startWhenNeeded = false;
     banner = strings.asciitxt;
 
-    extraConfig = ''
-      StreamLocalBindUnlink yes
-    '';
+    # extraConfig = ''
+    #   StreamLocalBindUnlink yes
+    # '';
 
-    ports = [ 270 ];
+    ports = [ 22 ];
     openFirewall = true;
 
     #authorizedKeysInHomedir = true;
@@ -33,20 +33,20 @@
     #knownHosts.<name>.extraHostNames
     #knownHosts.<name>.certAuthority
 
-    hostKeys = [
-      {
-        bits = 4096;
-        path = "/etc/ssh/ssh_host_rsa_key";
-        type = "rsa";
-    
-      }
-      {
-        path = "/etc/ssh/ssh_host_ed25519_key";
-        type = "ed25519";
-      }
-    ];
+    # hostKeys = [
+    #   {
+    #     bits = 4096;
+    #     path = "/etc/ssh/ssh_host_rsa_key";
+    #     type = "rsa";
+    # 
+    #   }
+    #   {
+    #     path = "/etc/ssh/ssh_host_ed25519_key";
+    #     type = "ed25519";
+    #   }
+    # ];
 
-    moduliFile = "${pkgs.openssh}/etc/ssh/moduli";
+    #moduliFile = "${pkgs.openssh}/etc/ssh/moduli";
 
     settings = {
 
@@ -72,27 +72,27 @@
       PermitRootLogin = "no";
       GatewayPorts = "no";
 
-      Macs = [
-        "hmac-sha2-512-etm@openssh.com"
-        "hmac-sha2-256-etm@openssh.com"
-        "umac-128-etm@openssh.com"
-      ];
-
-      Ciphers = [
-        "chacha20-poly1305@openssh.com"
-        "aes256-gcm@openssh.com"
-        "aes128-gcm@openssh.com"
-        "aes256-ctr"
-        "aes192-ctr"
-        "aes128-ctr"
-      ];
-
-      KexAlgorithms = [
-        "sntrup761x25519-sha512@openssh.com"
-        "curve25519-sha256"
-        "curve25519-sha256@libssh.org"
-        "diffie-hellman-group-exchange-sha256"
-      ];
+      # Macs = [
+      #   "hmac-sha2-512-etm@openssh.com"
+      #   "hmac-sha2-256-etm@openssh.com"
+      #   "umac-128-etm@openssh.com"
+      # ];
+      #
+      # Ciphers = [
+      #   "chacha20-poly1305@openssh.com"
+      #   "aes256-gcm@openssh.com"
+      #   "aes128-gcm@openssh.com"
+      #   "aes256-ctr"
+      #   "aes192-ctr"
+      #   "aes128-ctr"
+      # ];
+      #
+      # KexAlgorithms = [
+      #   "sntrup761x25519-sha512@openssh.com"
+      #   "curve25519-sha256"
+      #   "curve25519-sha256@libssh.org"
+      #   "diffie-hellman-group-exchange-sha256"
+      # ];
 
     };
   };
