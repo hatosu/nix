@@ -17,7 +17,7 @@
     ./local/network.nix
 
     module.cli
-    module.tmux
+    module.neovim
     module.openssh
     module.minecraft
 

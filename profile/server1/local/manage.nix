@@ -6,7 +6,7 @@
   ...
 }: let
   
-  FLAKE = "/home/server1/nix/";
+  FLAKE = "/home/hatosu/nix";
   
   HOST = "server1";
 

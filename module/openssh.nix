@@ -1,17 +1,23 @@
-{ pkgs, strings, ... }: {
+{ pkgs, ... }: let
+
+  keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIx7qS5yAiexn8D43ce+YD54N/X6BFxGSeZojOMKqXSp hatosu@nixos"
+  ];
+
+in {
 
   services.openssh = {
 
     enable = true;
     package = pkgs.openssh;
-    startWhenNeeded = false;
-    banner = strings.asciitxt;
+    # startWhenNeeded = false;
+    # banner = strings.asciitxt;
 
     # extraConfig = ''
     #   StreamLocalBindUnlink yes
     # '';
 
-    ports = [ 22 ];
+    ports = [ 2022 ];
     openFirewall = true;
 
     #authorizedKeysInHomedir = true;
@@ -61,16 +67,16 @@
       #DenyGroups = [ "root" ];
 
       X11Forwarding = false;
-      UsePAM = true;
-      UseDns = true;
-      StrictModes = true;
-      PrintMotd = false;
+      # UsePAM = true;
+      # UseDns = true;
+      # StrictModes = true;
+      # PrintMotd = false;
 
-      LogLevel = "INFO";
-      AuthorizedPrincipalsFile = "none";
+      # LogLevel = "INFO";
+      # AuthorizedPrincipalsFile = "none";
 
       PermitRootLogin = "no";
-      GatewayPorts = "no";
+      # GatewayPorts = "no";
 
       # Macs = [
       #   "hmac-sha2-512-etm@openssh.com"
@@ -98,7 +104,7 @@
   };
 
   services.fail2ban = {
-    enable = true;
+    # enable = true;
     package = pkgs.fail2ban;
 
     # ban ip after 3 fails
@@ -169,4 +175,10 @@
     # '');
 
   };
+
+  users.users = {
+    hatosu.openssh.authorizedKeys.keys = keys;
+    root.openssh.authorizedKeys.keys = keys;
+  };
+
 }

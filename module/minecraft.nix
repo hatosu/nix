@@ -90,7 +90,7 @@ in {
 
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
-  networking.firewall.interfaces."*".allowedTCPPorts = [ 25565 19132 ];
+ # networking.firewall.interfaces."*".allowedTCPPorts = [ 25565 19132 ];
 
   services.minecraft-servers = {
 

@@ -4,13 +4,6 @@
   ...
 }: {
 
-    home-manager.users.hatosu.home.file."WTFFFFFFFFFFFF".text = let
-      FLAGS = builtins.concatStringsSep " " [ 
-        "-Xms6144M"
-        "-Xmx8192M"
-      ];
-    in "${FLAGS}";
-
   # wayland terminal
   home-manager.users.hatosu.programs.foot = {
     enable = true;

@@ -54,6 +54,7 @@
         ".cache/dconf" 
         ".config/dconf"
         "minecraft"
+        "nix"
       ];
     };
   

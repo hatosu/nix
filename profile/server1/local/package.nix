@@ -2,7 +2,7 @@
     
       # default
       with pkgs; [
-        kitty
+        wget
       ]
       
       # fresh
