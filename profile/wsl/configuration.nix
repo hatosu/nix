@@ -19,6 +19,7 @@
     module.neovim
     module.tmux
     module.minecraft
+    module.warnings
   
   ];
 

@@ -20,6 +20,7 @@
     module.neovim
     module.openssh
     module.minecraft
+    module.warnings
 
   ];
 

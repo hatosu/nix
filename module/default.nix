@@ -25,4 +25,5 @@
   obsidian = import ./obsidian.nix;
   minecraft = import ./minecraft.nix;
   openssh = import ./openssh.nix;
+  warnings = import ./warnings.nix;
 }
