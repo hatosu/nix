@@ -32,7 +32,7 @@
     nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       powerManagement.enable = true;
-      powerManagement.finegrained = true;
+      powerManagement.finegrained = false;
       dynamicBoost.enable = false;
       open = false;
       nvidiaPersistenced = true;
