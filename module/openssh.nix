@@ -1,6 +1,7 @@
 { pkgs, ... }: let
 
   keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIURvYLzxzaWxTRTOg52dVu/19VReYNr/v8xGw0eEeGZ ssh for server1 on nixos"
   ];
 
 in {
@@ -16,7 +17,7 @@ in {
     #   StreamLocalBindUnlink yes
     # '';
 
-    ports = [ 2022 ];
+    ports = [ 44433 ];
     openFirewall = true;
 
     #authorizedKeysInHomedir = true;
@@ -103,7 +104,8 @@ in {
   };
 
   services.fail2ban = {
-    # enable = true;
+
+    enable = true;
     package = pkgs.fail2ban;
 
     # ban ip after 3 fails
@@ -177,7 +179,6 @@ in {
 
   users.users = {
     hatosu.openssh.authorizedKeys.keys = keys;
-    root.openssh.authorizedKeys.keys = keys;
   };
 
 }

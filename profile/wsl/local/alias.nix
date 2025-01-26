@@ -26,6 +26,10 @@
 
   interactiveShellInit = ''
 
+    freeport(){
+      ${pkgs.ruby}/bin/ruby -e 'require "socket"; puts Addrinfo.tcp("", 0).bind {|s| s.local_address.ip_port }'
+    }
+
     epubtopdf(){
       PATH=$PATH:${pkgs.texliveFull}/bin
       ${pkgs.pandoc}/bin/pandoc -V fontsize=12pt -V geometry:margin=1in -f epub -t latex -o output.pdf --pdf-engine=xelatex
