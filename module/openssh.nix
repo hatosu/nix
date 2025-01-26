@@ -1,7 +1,6 @@
 { pkgs, ... }: let
 
   keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIx7qS5yAiexn8D43ce+YD54N/X6BFxGSeZojOMKqXSp hatosu@nixos"
   ];
 
 in {

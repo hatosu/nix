@@ -41,11 +41,12 @@
       "/var/log"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
-      #"/var/lib/minecraft"
+      "/etc/passwd"
+      "/etc/ssh"
       {directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o=";}
     ];
     files = [
-      {file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; };}
+      {file = "/var/keys/passwd"; parentDirectory = { mode = "u=rwx,g=,o="; };}
     ];
 
     # home
@@ -53,9 +54,13 @@
       directories = [
         ".cache/dconf" 
         ".config/dconf"
+        ".ssh"
         "minecraft"
         "nix"
       ];
+      # files = [
+      #   ".zsh_history"
+      # ];
     };
   
   };
