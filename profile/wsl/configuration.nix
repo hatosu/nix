@@ -20,6 +20,7 @@
     module.cli
     module.neovim
     module.tmux
+    module.minecraft
   
   ];
 

@@ -110,8 +110,106 @@ in {
         inherit level-name motd;
       };
 
-      #symlinks = {
-      #};
+      symlinks = {
+
+        "config/paper-world-defaults.yml" = let yml = pkgs.writeText "-" ''
+          anticheat:
+            anti-xray:
+              enabled: true
+              engine-mode: 2
+              hidden-blocks:
+              - air
+              - copper_ore
+              - deepslate_copper_ore
+              - raw_copper_block
+              - diamond_ore
+              - deepslate_diamond_ore
+              - gold_ore
+              - deepslate_gold_ore
+              - iron_ore
+              - deepslate_iron_ore
+              - raw_iron_block
+              - lapis_ore
+              - deepslate_lapis_ore
+              - redstone_ore
+              - deepslate_redstone_ore
+              lava-obscures: false
+              max-block-height: 64
+              replacement-blocks:
+              - chest
+              - amethyst_block
+              - andesite
+              - budding_amethyst
+              - calcite
+              - coal_ore
+              - deepslate_coal_ore
+              - deepslate
+              - diorite
+              - dirt
+              - emerald_ore
+              - deepslate_emerald_ore
+              - granite
+              - gravel
+              - oak_planks
+              - smooth_basalt
+              - stone
+              - tuff
+              update-radius: 2
+              use-permission: false
+        ''; in yml;
+
+        "world_nether/paper-world.yml" = let yml = pkgs.writeText "-" ''
+           anticheat:
+             anti-xray:
+               enabled: true
+               engine-mode: 2
+               hidden-blocks:
+               - air
+               - ancient_debris
+               - bone_block
+               - glowstone
+               - magma_block
+               - nether_bricks
+               - nether_gold_ore
+               - nether_quartz_ore
+               - polished_blackstone_bricks
+               lava-obscures: false
+               max-block-height: 128
+               replacement-blocks:
+               - basalt
+               - blackstone
+               - gravel
+               - netherrack
+               - soul_sand
+               - soul_soil
+               update-radius: 2
+               use-permission: false
+        ''; in yml;
+
+         "plugins" = pkgs.linkFarmFromDrvs "plugins" ( builtins.attrValues {
+           Geyser = pkgs.fetchurl {
+             url = "https://cdn.modrinth.com/data/wKkoqHrH/versions/T7F2YvxM/Geyser-Spigot.jar";
+             sha256 = "0axsmh328hi10v799g5k9cs66x5byklgwvw5sp7pvywmbfqzjqfz";
+           };
+           Sleeper = pkgs.fetchurl {
+             url = "https://cdn.modrinth.com/data/Kt3eUOUy/versions/AJnc8xNL/Sleeper-1.6.2.jar";
+             sha256 = "0x8cjrhvv63dbfhznip7ih2zsknwi5vb65742zws9qiw1r6jczxz";
+           };
+           InvSee = pkgs.fetchurl {
+             url = "https://cdn.modrinth.com/data/bYazc7fd/versions/5iErH7nw/InvSee%2B%2B.jar";
+             hash = "sha256-mjLh/fmWB9pylxuuu4ZtJYiPu7A0STMSuJb6obvqbUU=";
+           };
+           Statusbot = pkgs.fetchurl {
+             url = "https://cdn.modrinth.com/data/G9ZpI0bU/versions/HnD8Ln4X/Statusbot-18.2-Spigot.jar";
+             hash = "sha256-WQb3jUIZtCn7Nc58b4zc6vF8pqgQCQwAYG0SWeJVzeI=";
+           };
+           CopperItems = pkgs.fetchurl {
+             url = "https://cdn.modrinth.com/data/52uRwnTq/versions/KeoAFokD/CopperItems-2.1.jar";
+             hash = "sha256-jdNZkNns+oOsB2jliiLzB6SRuzykgPMPRx17UT/MmYU=";
+           };
+         });
+
+      };
 
     };
   };
