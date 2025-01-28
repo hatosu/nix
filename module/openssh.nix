@@ -4,12 +4,17 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIURvYLzxzaWxTRTOg52dVu/19VReYNr/v8xGw0eEeGZ ssh for server1 on nixos"
   ];
 
+  portInt = 44433;
+
+  portStr = "44433";
+
 in {
 
   services.openssh = {
 
     enable = true;
     package = pkgs.openssh;
+
     # startWhenNeeded = false;
     # banner = strings.asciitxt;
 
@@ -17,7 +22,7 @@ in {
     #   StreamLocalBindUnlink yes
     # '';
 
-    ports = [ 44433 ];
+    ports = [portInt];
     openFirewall = true;
 
     #authorizedKeysInHomedir = true;
@@ -181,4 +186,22 @@ in {
     hatosu.openssh.authorizedKeys.keys = keys;
   };
 
+  environment.interactiveShellInit = ''
+    ___(){
+      printf "ip: " >&2
+      read -r _IP
+      printf "src: " >&2
+      read -r _SRC
+      printf "dst: " >&2
+      read -r _DST
+    }
+    server1_to_client(){
+      ___
+      sh -c "scp -i ~/.ssh/server1 -P ${portStr} -r hatosu@$_IP:$_SRC $_DST"
+    }
+    client_to_server1(){
+      ___
+      sh -c "scp -i ~/.ssh/server1 -P ${portStr} -r $_SRC hatosu@$_IP:$_DST"
+    }
+  '';
 }

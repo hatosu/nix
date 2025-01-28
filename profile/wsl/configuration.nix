@@ -15,11 +15,12 @@
     ./local/package.nix
     ./local/utility.nix
 
+    module.pkg
+    module.warnings
     module.cli
     module.neovim
     module.tmux
     module.minecraft
-    module.warnings
   
   ];
 

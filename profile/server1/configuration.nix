@@ -16,11 +16,13 @@
     ./local/manage.nix
     ./local/network.nix
 
+    module.pkg
+    module.commands
+    module.warnings
     module.cli
     module.neovim
     module.openssh
     module.minecraft
-    module.warnings
 
   ];
 

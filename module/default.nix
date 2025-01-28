@@ -1,4 +1,5 @@
 {
+  pkg = import ./pkg.nix;
   niri = import ./niri.nix;
   kde = import ./kde.nix;
   hyprland = import ./hyprland.nix;
@@ -26,4 +27,5 @@
   minecraft = import ./minecraft.nix;
   openssh = import ./openssh.nix;
   warnings = import ./warnings.nix;
+  commands = import ./commands.nix;
 }
