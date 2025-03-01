@@ -14,8 +14,8 @@
 </div>
 
 <p float="left">
-  <img src="https://files.catbox.moe/qnde5w.png" width="390" />
-  <img src="https://files.catbox.moe/p246gh.png" width="390" />
+  <img src="https://files.catbox.moe/qnde5w.png" width="400" />
+  <img src="https://files.catbox.moe/p246gh.png" width="400" />
 </p>
 
 > [!IMPORTANT]
