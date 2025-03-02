@@ -14,8 +14,8 @@
 </div>
 
 <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;"><p float="left">
-  <img src="https://files.catbox.moe/qnde5w.png" width="400" />
-  <img src="https://files.catbox.moe/p246gh.png" width="400" />
+  <img src="https://files.catbox.moe/qnde5w.png" width="380" />
+  <img src="https://files.catbox.moe/p246gh.png" width="380" />
 </p></div>
 
 > [!IMPORTANT]
