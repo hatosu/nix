@@ -16,7 +16,7 @@
     --experimental-features \
     "nix-command flakes" \
     run github:nix-community/disko -- \
-    --mode disko /tmp/nix/profile/rinji/disk.nix \
+    --mode disko /tmp/nix/prf/rinji/disk.nix \
     --arg device '"/dev/$_DRIVE"'
 
   sudo nixos-generate-config \
@@ -25,7 +25,7 @@
   sudo rm -f /tmp/nix/flake.lock
   sudo rm -f /mnt/etc/nixos/configuration.nix
   sudo cp -rf /tmp/nix/* /mnt/etc/nixos
-  sudo mv -f /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/profile/rinji/hardware.nix
+  sudo mv -f /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/prf/rinji/hardware.nix
   sudo mkdir /persist
   sudo cp -rf /mnt/etc/nixos /persist
 
